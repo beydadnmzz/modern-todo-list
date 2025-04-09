@@ -2,7 +2,7 @@
 
 This project is a modern and visually appealing todo list application. It was developed using React and is ideal for showcasing on GitHub.
 
-![Modern Todo List](https://via.placeholder.com/800x450.png?text=Modern+Todo+List+App)
+![Modern Todo List]
 
 ## Features
 
@@ -76,4 +76,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 
 ## Contact
 
-GitHub: [username](https://github.com/beydadnmzz)
+GitHub: [Beyda](https://github.com/beydadnmzz)
