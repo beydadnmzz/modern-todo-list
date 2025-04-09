@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/modern-todo-list/static/css/main.b33bc515.css",
+    "main.js": "/modern-todo-list/static/js/main.1d7a046b.js",
+    "index.html": "/modern-todo-list/index.html",
+    "main.b33bc515.css.map": "/modern-todo-list/static/css/main.b33bc515.css.map",
+    "main.1d7a046b.js.map": "/modern-todo-list/static/js/main.1d7a046b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b33bc515.css",
+    "static/js/main.1d7a046b.js"
+  ]
+}
