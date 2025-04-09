@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# Modern Todo List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a modern and visually appealing todo list application. It was developed using React and is ideal for showcasing on GitHub.
 
-## Available Scripts
+![Modern Todo List](https://via.placeholder.com/800x450.png?text=Modern+Todo+List+App)
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- ✅ Task addition and removal
+- ⭐ Featured items functionality
+- 🔍 Search within the list
+- 🌓 Dark/Light mode support (automatic device preference detection)
+- 🔄 JSONPlaceholder API integration
+- 💾 Data persistence with LocalStorage
+- 🏷️ Priority tags (High, Medium, Low)
+- 🔃 Drag and drop to reorder tasks
+- 📱 Responsive design
+- 🎯 Filter completed tasks
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Live Demo
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+[Live Demo Link](#) (You can add a link after deploying to GitHub Pages or Vercel/Netlify)
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Follow these steps to run the project on your local machine:
 
-### `npm run build`
+1. Clone this repository
+```bash
+git clone https://github.com/username/modern-todo-list.git
+cd modern-todo-list
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install the required dependencies
+```bash
+npm install
+# or
+yarn install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Start the development server
+```bash
+npm start
+# or
+yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Visit `http://localhost:3000` in your browser
 
-### `npm run eject`
+## Technologies
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React
+- Tailwind CSS
+- React Hooks
+- Lucide Icons
+- LocalStorage API
+- Fetch API (for integration with JSONPlaceholder API)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Customization
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- You can customize the main application logic in the `src/components/TodoApp.jsx` file
+- The color scheme can be modified in the `tailwind.config.js` file
+- You can break down components into smaller pieces if desired
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Contributing
 
-## Learn More
+1. Fork this repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
 
-### Code Splitting
+## Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GitHub: [username](https://github.com/beydadnmzz)
