@@ -2,8 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Moon, Sun, Search, Star, Plus, Trash2, Check, X, Edit, Filter, MoreHorizontal, Save } from 'lucide-react';
 import TodoItem from './TodoItem';
 
+// Ana uygulama bileşeni
 function TodoApp() {
-  const [darkMode, setDarkMode] = useState(false);
+  // Dark mode başlangıç durumu - localStorage ya da sistem tercihini kontrol eder
+  const [darkMode, setDarkMode] = useState(() => {
+    // localStorage'dan dark mode tercihi kontrolü
+    const savedMode = localStorage.getItem('dark-mode');
+    if (savedMode !== null) {
+      return savedMode === 'true';
+    }
+    // Sistem tercihi kontrolü
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+  
   const [todos, setTodos] = useState([]);
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
@@ -18,49 +29,44 @@ function TodoApp() {
   
   const inputRef = useRef(null);
   
+  // Dark mode değiştiğinde HTML'e class ekle ve localStorage'a kaydet
   useEffect(() => {
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    setDarkMode(darkModeMediaQuery.matches);
-    
-    const handleChange = (e) => {
-      setDarkMode(e.matches);
-    };
-    
-    darkModeMediaQuery.addEventListener('change', handleChange);
-    
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-    
-    return () => {
-      darkModeMediaQuery.removeEventListener('change', handleChange);
-    };
+    localStorage.setItem('dark-mode', darkMode);
   }, [darkMode]);
   
+  // LocalStorage'dan todoları yükle
   useEffect(() => {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {
       setTodos(JSON.parse(storedTodos));
     } else {
+      // İlk yüklemede API'den örnek todoları al
       fetchInitialTodos();
     }
   }, []);
   
+  // Filtrelenen todoları güncelle
   useEffect(() => {
     let result = [...todos];
     
+    // Arama filtreleme
     if (searchQuery) {
       result = result.filter(todo => 
         todo.text.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
     
+    // Featured filtreleme
     if (showFeatured) {
       result = result.filter(todo => todo.featured);
     }
     
+    // Durum filtreleme
     if (filter === 'active') {
       result = result.filter(todo => !todo.completed);
     } else if (filter === 'completed') {
@@ -70,10 +76,12 @@ function TodoApp() {
     setFilteredTodos(result);
   }, [todos, searchQuery, showFeatured, filter]);
   
+  // Todoları localStorage'a kaydet
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
   
+  // Dropdown menüsünü sayfa dışına tıklandığında kapat
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (showDropdown && !event.target.closest('.dropdown-container')) {
@@ -88,30 +96,34 @@ function TodoApp() {
     };
   }, [showDropdown]);
   
+  // JSONPlaceholder API'den örnek todoları al
   const fetchInitialTodos = async () => {
     setLoading(true);
     try {
       const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=5');
       const data = await response.json();
       
+      // API verisini uygulamamızın formatına dönüştür
       const formattedData = data.map(item => ({
         id: item.id.toString(),
         text: item.title,
         completed: item.completed,
-        featured: Math.random() > 0.7,
-        priority: Math.floor(Math.random() * 3) + 1,
+        featured: Math.random() > 0.7, // Rastgele featured değeri
+        priority: Math.floor(Math.random() * 3) + 1, // 1-3 arası rastgele öncelik
         createdAt: new Date().toISOString()
       }));
       
       setTodos(formattedData);
     } catch (error) {
       console.error('Error fetching todos:', error);
+      // Hata durumunda boş liste ile başla
       setTodos([]);
     } finally {
       setLoading(false);
     }
   };
   
+  // Yeni todo ekle
   const addTodo = (e) => {
     e.preventDefault();
     if (newTodo.trim() === '') return;
@@ -130,33 +142,39 @@ function TodoApp() {
     inputRef.current.focus();
   };
   
+  // Todo sil
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
   
+  // Todo tamamlama durumu değiştir
   const toggleComplete = (id) => {
     setTodos(todos.map(todo => 
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
   
+  // Todo öne çıkarma durumu değiştir
   const toggleFeatured = (id) => {
     setTodos(todos.map(todo => 
       todo.id === id ? { ...todo, featured: !todo.featured } : todo
     ));
   };
   
+  // Todo önceliğini değiştir
   const changePriority = (id, priority) => {
     setTodos(todos.map(todo => 
       todo.id === id ? { ...todo, priority } : todo
     ));
   };
   
+  // Düzenleme modunu aç
   const startEditing = (id, text) => {
     setEditingId(id);
     setEditingText(text);
   };
   
+  // Düzenlemeyi kaydet
   const saveEdit = () => {
     if (editingText.trim() === '') return;
     
@@ -168,17 +186,21 @@ function TodoApp() {
     setEditingText('');
   };
   
+  // Drag başlat
   const handleDragStart = (e, id) => {
     setDraggedItem(id);
   };
   
+  // Drop alanı üzerinde
   const handleDragOver = (e) => {
     e.preventDefault();
   };
   
+  // Drop gerçekleşti
   const handleDrop = (e, targetId) => {
     e.preventDefault();
     
+    // Aynı item ise işlem yapma
     if (draggedItem === targetId) return;
     
     const draggedItemIndex = todos.findIndex(todo => todo.id === draggedItem);
@@ -194,17 +216,28 @@ function TodoApp() {
     setDraggedItem(null);
   };
   
+  // Tüm tamamlanmış görevleri temizle
   const clearCompleted = () => {
     setTodos(todos.filter(todo => !todo.completed));
     setShowDropdown(false);
   };
   
+  // Önceliğe göre sırala - tamamlananlar en altta
   const sortByPriority = () => {
-    const sorted = [...todos].sort((a, b) => a.priority - b.priority);
+    const sorted = [...todos].sort((a, b) => {
+      // Önce tamamlanma durumuna göre sırala
+      if (a.completed && !b.completed) return 1;
+      if (!a.completed && b.completed) return -1;
+      
+      // Aynı tamamlanma durumundaysa önceliğe göre sırala
+      return a.priority - b.priority;
+    });
+    
     setTodos(sorted);
     setShowDropdown(false);
   };
   
+  // Dropdown menüyü göster/gizle
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
